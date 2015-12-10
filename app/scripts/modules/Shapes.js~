@@ -4,7 +4,7 @@
     VERSION:'0.0.1'
   };
 
-  function createShape(attributes) {
+function createShape(attributes) {
     attributes = attributes;
     attributes._id = parseInt(attributes._id);
     attributes.name = attributes.name;
@@ -48,58 +48,44 @@
 
   function createRoad(attributes) {
     attributes = attributes;
-    attributes.category = attributes.highway;
-
     var road = createShape(attributes);
-
     road.getCategory = function() {
       return attributes.category;
     };
-
+   
     return road;
   };
 
   function createBuilding(attributes) {
     attributes = attributes;
-
     var building = createShape(attributes);
 
     building.getArea = function() {
       var area = 0;
-      for(var i = 0; i < attributes.nodes.length-1; i++) {
-        area += attributes.nodes[i].x*attributes.nodes[i+1].y - attributes.nodes[i+1].x * attributes.nodes[i].y;
-      }
-      return area / 2;
+      //TODO
+
+      
     };
-
     building.area = building.getArea();
-
     return building;
   };
 
   function createAmenity(attributes) {
     attributes = attributes;
-    attributes.type = attributes.amenity;
-
     var amenity = createShape(attributes);
-
     amenity.getType = function() {
       return attributes.type;
     };
-
-    return amenity;
+    
+   return amenity;
   };
-
   function createNatural(attributes) {
     attributes = attributes;
-    attributes.type = attributes.natural;
-
     var natural = createShape(attributes);
-
     natural.getType = function() {
       return attributes.type;
     };
-
+    
     return natural;
   };
 
@@ -108,5 +94,8 @@
   global.Shapes.createBuilding = createBuilding;
   global.Shapes.createAmenity = createAmenity;
   global.Shapes.createNatural = createNatural;
+
+
+
 
 }(this));

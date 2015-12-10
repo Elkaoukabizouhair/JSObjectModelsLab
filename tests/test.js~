@@ -15,27 +15,32 @@
 
     // TODO: Vérifier que la création d'objets SpeedCheck est Possible
 
-    test('Test de vérification des objets SpeedCheck d\'objets "SpeedCheck"', function() {
-      expect(6);
-      ok(typeof window.createSpeedCheck() !== 'undefined', 'Appel de la fnct  "createSpeedCheck".');
-      var speed0 = window.createSpeedCheck();
-      ok(typeof speed0 === 'object', 'La fnct "createSpeedCheck" retourne un objet .');
 
-      ok(typeof window.createSpeedCheckFR() !== 'undefined', 'Appel de la fnct "createSpeedCheckFR".');
+test('Test creation d\'objets "SpeedCheck"', function() {
+      expect(6);
+      ok(typeof window.createSpeedCheck() !== 'undefined', 'Appel de la fonction "createSpeedCheck".');
+      var speed0 = window.createSpeedCheck();
+      ok(typeof speed0 === 'object', 'La fonction "createSpeedCheck" doit retourner un objet.');
+
+      ok(typeof window.createSpeedCheckFR() !== 'undefined', 'Appel de la fonction "createSpeedCheckFR".');
       var speed1 = window.createSpeedCheckFR();
-      ok(typeof speed1 === 'object', 'La fnct "createSpeedCheckFR" retourne un objet.');
+      ok(typeof speed1 === 'object', 'La fonction "createSpeedCheckFR" doit retourner un objet.');
 
       ok(typeof window.createSpeedCheckBE() !== 'undefined', 'Appel de la fonction "createSpeedCheckBE".');
       var speed2 = window.createSpeedCheckBE();
-      ok(typeof speed2 === 'object', 'La fnct "createSpeedCheckBE" retourne un objet.');
+      ok(typeof speed2 === 'object', 'La fonction "createSpeedCheckBE" doit retourner un objet.');
     });
+
+
+
 
     // TODO: Vérifier que les objets créés directement avec creatSpeedCheck ne sont pas utilisables :
     // speed0 = creatSpeedCheck();
     // speed0.speed = 42; // SHOULD throw a SpeedCheckError.
     // speed0.licencePlate = '3-DFE-456'; // SOULD throw a SpeedCheckError.
 
-    test('test des erreurs apparaissent dans la création d\'objets avec "createSpeedCheck"', function() {
+
+test('Test erreurs dans la creation d\'objets avec "createSpeedCheck"', function() {
       expect(2);
       var speed0 = window.createSpeedCheck();
       var message;
@@ -44,18 +49,23 @@
       } catch(erreur){
         message = erreur.message;
       }
-      ok(message, 'SOULD throw a SpeedCheckError.');
+      equal(message, 'The "createSpeedCheck" should not be instantiated. It should be specialized.', 'Erreur Speed.');
       try{
         speed0.licencePlate = '3-DFE-456';
       } catch(erreur){
         message = erreur.message;
       }
-      ok(message, 'SOULD throw a SpeedCheckError.');
+      equal(message, 'The "createSpeedCheck" should not be instantiated. It should be specialized.', 'Erreur licencePlate.');
     });
+ 
+
+
 
     // TODO: Vérifier que TOUTES les fonctionnalités de createSpeedCheckFR sont correctes (effects de bords, valeurs négatives, etc.) pour tous les attributs (speed et licencePlate)
 
-    test('Test creation d\'objets "SpeedCheckFR"', function() {
+
+
+  test('Test creation d\'objets "SpeedCheckFR"', function() {
       expect(9);
       var speed0 = window.createSpeedCheckFR();
       var erreur;
@@ -91,22 +101,27 @@
       equal(speed0.licencePlate, 'DE123FG', 'Plaque reconnue');
     });
 
+
+
+
     // TODO: Vérifier que TOUTES les fonctionnalités de createSpeedCheckBE sont correctes (effects de bords, valeurs négatives, etc.) pour tous les attributs (speed et licencePlate)
 
-    test('Test de vérification de la création ....\'objets "SpeedCheckBE"', function() {
+
+
+test('Test creation d\'objets "SpeedCheckBE"', function() {
       expect(9);
       var speed0 = window.createSpeedCheckBE();
       var erreur;
       var message;
-      equal(speed0.speed, 0, 'la vitesse par défaut ');
+      equal(speed0.speed, 0, 'Speed par defaut');
       try{
         speed0.speed = -10;
       } catch(e){
         erreur = e.name;
         message = e.message;
       }
-      equal(erreur, 'SpeedCheckError', 'val neg');
-      equal(message, 'Vitesse négative. Vous roulez a contre sens?', 'val nega');
+      equal(erreur, 'SpeedCheckError', 'Valeur négative');
+      equal(message, 'Vitesse négative. Vous roulez a contre sens?', 'Message valeur négative');
 
       speed0.speed = 120;
       equal(speed0.infraction , false, 'Vitesse = '+ speed0.speed +' : Pas d\'infraction');
@@ -129,13 +144,18 @@
       equal(speed0.licencePlate, '3-DFE-456', 'Plaque reconnue');
     });
 
+
+
+
     // TODO: Vérifier que la fonction toString() fonctionne bien.
     //  - chaine de caractère attentue pour une infracion (e.g. licencePlate === 'WD366MD' et  speed === 135):
+
+
     //      "Véhicule WD366MD roule à 135 km/h. Infraction!"
     //  - chaine de caractère attendue pour sans infraction (e.g. licencePlate === 'WD366MD' et  speed === 105):
     //      "Véhicule WD366MD roule à 105 km/h. Ça va, circulez..."
 
-    test('Test de la fonction toString', function() {
+test('Test de la fonction toString', function() {
       expect(4);
       var speed0 = window.createSpeedCheckFR();
       var speed1 = window.createSpeedCheckBE();
@@ -148,7 +168,6 @@
       equal(speed0.toString(), 'Véhicule DE123FG roule à 130 km/h. Ça va, circulez...', 'Pas d\'infraction');
       equal(speed1.toString(), 'Véhicule 3-DFE-456 roule à 130 km/h. Infraction!', 'Infraction');
     });
-
 
 
     /*---------------------------------*/
@@ -271,7 +290,7 @@
       equal(road.getCategory(),'Residential', 'Should return the value corresponding to the "highway" property in the attributes');
     });
 
-    test('Test the createAmenity function', function() {
+    test('Test the createNatural function', function() {
       expect(1);
       ok(typeof window.Shapes.createAmenity !== 'undefined', 'The Shapes module sould expose a "createAmenity" function');
     });
@@ -295,7 +314,7 @@
     });
 
 
-    test('Test the createNatural function', function() {
+    test('Test the createAmenity function', function() {
       expect(1);
       ok(typeof window.Shapes.createNatural !== 'undefined', 'The Shapes module sould expose a "createNatural" function');
     });
@@ -315,10 +334,14 @@
     /*-----------------------------------*/
 
     // TODO Write the whole test module for testing with the app/data/eure.json file.
+
+
     var obj;
     var objets;
     var autres;
     var objetShapes = {buildings:[], roads:[], amenities:[], naturals:[]};
+
+
     module('Asynchronous Unit Test Module', {
         setup: function() {
             stop();
@@ -326,6 +349,7 @@
             // You can load a resource before loaching the test...
             $.get('test.json').success(function(data){
                 obj = data;
+                
             });
 
             // ... Or any asynchroneous task
@@ -334,7 +358,8 @@
             //     start();
             // }, 1000);
 
-            $.get('data/eure.json').success(function(data){
+
+$.get('data/eure.json').success(function(data){
                 objets = data;
                 autres = 0;
                 objetShapes = {buildings:[], roads:[], amenities:[], naturals:[]};
@@ -357,13 +382,18 @@
                 }
                 start();
             });
+
+
+
+
         }
     });
 
-    test('test nombre d\'objets', function(){
+
+test('test nombre d\'objets', function(){
       expect(2);
       ok(objets.length !== 0, 'Longueur non nulle');
-      var result = objetShapes.buildings.length + objetShapes.amenities.length + objetShapes.roads.length + objetShapes.naturals.length + autres;
+      var result = objetShapes.buildings.length + objetShapes.amenities.length  objetShapes.roads.length + objetShapes.naturals.length + autres;
       equal(objets.length, result, 'nombre objets');
     });
 
@@ -375,6 +405,9 @@
       }
       ok(res !== 0, 'Somme surfaces non nulle');
     });
+
+
+
 
     test('test 1', function() {
         equal(obj.a, 'OK', 'Message');
